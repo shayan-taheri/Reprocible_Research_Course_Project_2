@@ -1,16 +1,22 @@
-* Reproducible Research: Course Project 2 *
-===========================================
-Author: Shayan (Sean) Taheri
+---
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+## Reproducible Research: Course Project 2
+## Author: Shayan (Sean) Taheri
 
 ## Impact of Severe Weather Events on Public Health and Economy in the United States
 
 ### Synonpsis
 
-Our goal in this project, 
+Our goal in this project is analysis of the impact of different weather events on public health and economy based on the storm database cllected from U.S. National Occeanic and Atmospheric Administration's (NOAA) from 1950 - 2011.
 
-In this report, we aim to analyze the impact of different weather events on public health and economy based on the storm database collected from the U.S. National Oceanic and Atmospheric Administration's (NOAA) from 1950 - 2011. We will use the estimates of fatalities, injuries, property and crop damage to decide which types of event are most harmful to the population health and economy. From these data, we found that excessive heat and tornado are most harmful with respect to population health, while flood, drought, and hurricane/typhoon have the greatest economic consequences.
+The estimates of fatalities, injuries, property, and crop damage are used in cropping damage to harmful to the population healthy and economy. From these data, we found that excessive heat and tornado are most harmful with respect to population health, while flood, drought, and hurricane/typhoon have the greatest economic consequences.
 
 ### Basic settings
+
 ```{r}
 echo = TRUE  # Always make code visible
 options(scipen = 1)  # Turn off scientific notations for numbers
@@ -21,7 +27,9 @@ require(gridExtra)
 ```
 
 ### Data Processing
-First, we download the data file and unzip it.
+
+Let's download the data file and uncompress it in the first step.
+
 ```{r}
 getwd()
 setwd("C:/Users/shaya/Desktop/Reprocible_Research_Course_Project_2")
@@ -34,6 +42,9 @@ if (!"stormData.csv.bz2" %in% dir("./data/")) {
 
 ```
 Then, we read the generated csv file. If the data already exists in the working environment, we do not need to load it again. Otherwise, we read the csv file.
+
+Next, the generated CSV file is read if it does not exist in the working environment.
+
 ```{r}
 if (!"stormData" %in% ls()) {
     stormData <- read.csv("data/stormData.csv", sep = ",")
@@ -41,8 +52,8 @@ if (!"stormData" %in% ls()) {
 dim(stormData)
 head(stormData, n = 2)
 ```
-There are 902297 rows and 37 columns in total.
-The events in the database start in the year 1950 and end in November 2011. In the earlier years of the database there are generally fewer events recorded, most likely due to a lack of good records. More recent years should be considered more complete.
+
+There are 902297 rows and 37 columns in total. The database start is in the year of 1950 and ends in November 2011. In the earlier years of the database there are generally fewer events recorded, most likely due to a lack of good records. More recent years should be considered more complete.
 
 ```{r}
 if (dim(stormData)[2] == 37) {
@@ -51,7 +62,7 @@ if (dim(stormData)[2] == 37) {
 hist(stormData$year, breaks = 30)
 ```  
 
-Based on the above histogram, we see that the number of events tracked starts to significantly increase around 1995. So, we use the subset of the data from 1990 to 2011 to get most out of good records.
+Based on the delievered histogram, it can be seen that the number of events tracked starts to increase significantly specifically around 1995. So, we use the subset of the data from 1990 to 2011. to get most out of good records.
 ```{r}
 storm <- stormData[stormData$year >= 1995, ]
 dim(storm)
@@ -59,7 +70,8 @@ dim(storm)
 Now, there are 681500 rows and 38 columns in total.
 
 #### Impact on Public Health
-In this section, we check the number of **fatalities** and **injuries** that are caused by the severe weather events. We would like to get the first 15 most severe types of weather events.
+
+The number of **fatalities** and **injuries** are reviewd.They are caused by the sever weather events. We would like to get the first 15 most severe types of weather events.
 ```{r}
 sortHelper <- function(fieldName, top = 15, dataset = stormData) {
     index <- which(colnames(dataset) == fieldName)
@@ -76,7 +88,10 @@ injuries <- sortHelper("INJURIES", dataset = storm)
 ```
 
 #### Impact on Economy
-We will convert the **property damage** and **crop damage** data into comparable numerical forms according to the meaning of units described in the code book ([Storm Events](http://ire.org/nicar/database-library/databases/storm-events/)). Both `PROPDMGEXP` and `CROPDMGEXP` columns record a multiplier for each observation where we have Hundred (H), Thousand (K), Million (M) and Billion (B).
+
+The **property damage** and **crop damage** data are converted into comparable numerical forms. This conversion is in accordance with the meaning of units described in the code book ([Storm Events](http://ire.org/nicar/database-library/databases/storm-events/)).
+
+Both `PROPDMGEXP` and `CROPDMGEXP` columns record a multiplier for each observation where we have Hundred (H), Thousand (K), Million (M) and Billion (B).
 
 ```{r}
 convertHelper <- function(dataset = storm, fieldName, newFieldName) {
@@ -105,12 +120,15 @@ crop <- sortHelper("cropDamage", dataset = storm)
 ```
 
 ### Results
+
 As for the impact on public health, we have got two sorted lists of severe weather events below by the number of people badly affected.
+
 ```{r}
 fatalities
 injuries
 ```
-And the following is a pair of graphs of total fatalities and total injuries affected by these severe weather events. 
+A pair of graph of total fatalities nand total injuries affected by these severe weather events is shown in the following.
+
 ```{r}
 fatalitiesPlot <- qplot(EVTYPE, data = fatalities, weight = FATALITIES, geom = "bar", binwidth = NULL) +
     scale_y_continuous("Number of Fatalities") + 
@@ -125,15 +143,17 @@ injuriesPlot <- qplot(EVTYPE, data = injuries, weight = INJURIES, geom = "bar", 
 grid.arrange(fatalitiesPlot, injuriesPlot, ncol = 2)
 ```  
 
-Based on the above histograms, we find that **excessive heat** and **tornado** cause most fatalities; **tornato** causes most injuries in the United States from 1995 to 2011.
+The histogram represented in above demonstrates the **excessive heat** and **tornado** cause most fatalities; **excessive heat** and **tornado** cause most fatalities; **tornato** causes most injuries in the United States from 1995 to 2011.
 
-As for the impact on economy, we have got two sorted lists below by the amount of money cost by damages.  
+Two sorted lists by the amount of money cost by damages are provided in order to show the impact on economy.
 
 ```{r}
 property
 crop
 ```
-And the following is a pair of graphs of total property damage and total crop damage affected by these severe weather events. 
+
+A pair of graphs of total property damage and total crop damage affected by these severe weather events is given in the following.
+
 ```{r}
 propertyPlot <- qplot(EVTYPE, data = property, weight = propertyDamage, geom = "bar", binwidth = NULL) + 
     theme(axis.text.x = element_text(angle = 45, hjust = 1)) + scale_y_continuous("Property Damage in US dollars")+ 
@@ -145,7 +165,8 @@ cropPlot<- qplot(EVTYPE, data = crop, weight = cropDamage, geom = "bar", binwidt
 grid.arrange(propertyPlot, cropPlot, ncol = 2)
 ```  
 
-Based on the above histograms, we find that **flood** and **hurricane/typhoon** cause most property damage; **drought** and **flood** causes most crop damage in the United States from 1995 to 2011.
+For the goal of finding out the **flood** and **hurricane/typhoon** cause most property damage; **drought** and **flood** causes most crop damage in the United States from 1995 to 2011, two histogram plots are created and displayed side-by-side.
 
-### Conclusion  
-From these data, we found that **excessive heat** and **tornado** are most harmful with respect to population health, while **flood**, **drought**, and **hurricane/typhoon** have the greatest economic consequences.
+### Conclusion
+
+The interpretation from this study is described as **excessive heat** and **tornado** are most harmful with respect to population health, while **flood**, **drought**, and **hurricane/typhoon** have the greatest economic consequences.

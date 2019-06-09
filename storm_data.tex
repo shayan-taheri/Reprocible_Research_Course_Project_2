@@ -1,0 +1,610 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{}
+    \pretitle{\vspace{\droptitle}}
+  \posttitle{}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+
+\subsection{Reproducible Research: Course Project
+2}\label{reproducible-research-course-project-2}
+
+\subsection{Author: Shayan (Sean)
+Taheri}\label{author-shayan-sean-taheri}
+
+\subsection{Impact of Severe Weather Events on Public Health and Economy
+in the United
+States}\label{impact-of-severe-weather-events-on-public-health-and-economy-in-the-united-states}
+
+\subsubsection{Synonpsis}\label{synonpsis}
+
+Our goal in this project is analysis of the impact of different weather
+events on public health and economy based on the storm database cllected
+from U.S. National Occeanic and Atmospheric Administration's (NOAA) from
+1950 - 2011.
+
+The estimates of fatalities, injuries, property, and crop damage are
+used in cropping damage to harmful to the population healthy and
+economy. From these data, we found that excessive heat and tornado are
+most harmful with respect to population health, while flood, drought,
+and hurricane/typhoon have the greatest economic consequences.
+
+\subsubsection{Basic settings}\label{basic-settings}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{echo =}\StringTok{ }\OtherTok{TRUE}  \CommentTok{# Always make code visible}
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{scipen =} \DecValTok{1}\NormalTok{)  }\CommentTok{# Turn off scientific notations for numbers}
+\KeywordTok{library}\NormalTok{(R.utils)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'R.utils' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: R.oo
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: R.methodsS3
+\end{verbatim}
+
+\begin{verbatim}
+## R.methodsS3 v1.7.1 (2016-02-15) successfully loaded. See ?R.methodsS3 for help.
+\end{verbatim}
+
+\begin{verbatim}
+## R.oo v1.22.0 (2018-04-21) successfully loaded. See ?R.oo for help.
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'R.oo'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:methods':
+## 
+##     getClasses, getMethods
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     attach, detach, gc, load, save
+\end{verbatim}
+
+\begin{verbatim}
+## R.utils v2.8.0 successfully loaded. See ?R.utils for help.
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'R.utils'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:utils':
+## 
+##     timestamp
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     cat, commandArgs, getOption, inherits, isOpen, parse, warnings
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'ggplot2' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(plyr)}
+\KeywordTok{require}\NormalTok{(gridExtra)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: gridExtra
+\end{verbatim}
+
+\subsubsection{Data Processing}\label{data-processing}
+
+Let's download the data file and uncompress it in the first step.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{getwd}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "C:/Users/shaya/Desktop/Reprocible_Research_Course_Project_2"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{setwd}\NormalTok{(}\StringTok{"C:/Users/shaya/Desktop/Reprocible_Research_Course_Project_2"}\NormalTok{)}
+
+\ControlFlowTok{if}\NormalTok{ (}\OperatorTok{!}\StringTok{"stormData.csv.bz2"} \OperatorTok{%in%}\StringTok{ }\KeywordTok{dir}\NormalTok{(}\StringTok{"./data/"}\NormalTok{)) \{}
+    \KeywordTok{print}\NormalTok{(}\StringTok{"hhhh"}\NormalTok{)}
+    \KeywordTok{download.file}\NormalTok{(}\StringTok{"http://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"}\NormalTok{, }\DataTypeTok{destfile =} \StringTok{"data/stormData.csv.bz2"}\NormalTok{)}
+    \KeywordTok{bunzip2}\NormalTok{(}\StringTok{"data/stormData.csv.bz2"}\NormalTok{, }\DataTypeTok{overwrite=}\NormalTok{T, }\DataTypeTok{remove=}\NormalTok{F)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Then, we read the generated csv file. If the data already exists in the
+working environment, we do not need to load it again. Otherwise, we read
+the csv file.
+
+Next, the generated CSV file is read if it does not exist in the working
+environment.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\OperatorTok{!}\StringTok{"stormData"} \OperatorTok{%in%}\StringTok{ }\KeywordTok{ls}\NormalTok{()) \{}
+\NormalTok{    stormData <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"data/stormData.csv"}\NormalTok{, }\DataTypeTok{sep =} \StringTok{","}\NormalTok{)}
+\NormalTok{\}}
+\KeywordTok{dim}\NormalTok{(stormData)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 902297     37
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(stormData, }\DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   STATE__          BGN_DATE BGN_TIME TIME_ZONE COUNTY COUNTYNAME STATE
+## 1       1 4/18/1950 0:00:00     0130       CST     97     MOBILE    AL
+## 2       1 4/18/1950 0:00:00     0145       CST      3    BALDWIN    AL
+##    EVTYPE BGN_RANGE BGN_AZI BGN_LOCATI END_DATE END_TIME COUNTY_END
+## 1 TORNADO         0                                               0
+## 2 TORNADO         0                                               0
+##   COUNTYENDN END_RANGE END_AZI END_LOCATI LENGTH WIDTH F MAG FATALITIES
+## 1         NA         0                        14   100 3   0          0
+## 2         NA         0                         2   150 2   0          0
+##   INJURIES PROPDMG PROPDMGEXP CROPDMG CROPDMGEXP WFO STATEOFFIC ZONENAMES
+## 1       15    25.0          K       0                                    
+## 2        0     2.5          K       0                                    
+##   LATITUDE LONGITUDE LATITUDE_E LONGITUDE_ REMARKS REFNUM
+## 1     3040      8812       3051       8806              1
+## 2     3042      8755          0          0              2
+\end{verbatim}
+
+There are 902297 rows and 37 columns in total. The database start is in
+the year of 1950 and ends in November 2011. In the earlier years of the
+database there are generally fewer events recorded, most likely due to a
+lack of good records. More recent years should be considered more
+complete.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\KeywordTok{dim}\NormalTok{(stormData)[}\DecValTok{2}\NormalTok{] }\OperatorTok{==}\StringTok{ }\DecValTok{37}\NormalTok{) \{}
+\NormalTok{    stormData}\OperatorTok{$}\NormalTok{year <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{format}\NormalTok{(}\KeywordTok{as.Date}\NormalTok{(stormData}\OperatorTok{$}\NormalTok{BGN_DATE, }\DataTypeTok{format =} \StringTok{"%m/%d/%Y %H:%M:%S"}\NormalTok{), }\StringTok{"%Y"}\NormalTok{))}
+\NormalTok{\}}
+\KeywordTok{hist}\NormalTok{(stormData}\OperatorTok{$}\NormalTok{year, }\DataTypeTok{breaks =} \DecValTok{30}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{storm_data_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+Based on the delievered histogram, it can be seen that the number of
+events tracked starts to increase significantly specifically around
+1995. So, we use the subset of the data from 1990 to 2011. to get most
+out of good records.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{storm <-}\StringTok{ }\NormalTok{stormData[stormData}\OperatorTok{$}\NormalTok{year }\OperatorTok{>=}\StringTok{ }\DecValTok{1995}\NormalTok{, ]}
+\KeywordTok{dim}\NormalTok{(storm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 681500     38
+\end{verbatim}
+
+Now, there are 681500 rows and 38 columns in total.
+
+\paragraph{Impact on Public Health}\label{impact-on-public-health}
+
+The number of \textbf{fatalities} and \textbf{injuries} are reviewd.They
+are caused by the sever weather events. We would like to get the first
+15 most severe types of weather events.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sortHelper <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(fieldName, }\DataTypeTok{top =} \DecValTok{15}\NormalTok{, }\DataTypeTok{dataset =}\NormalTok{ stormData) \{}
+\NormalTok{    index <-}\StringTok{ }\KeywordTok{which}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(dataset) }\OperatorTok{==}\StringTok{ }\NormalTok{fieldName)}
+\NormalTok{    field <-}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(dataset[, index], }\DataTypeTok{by =} \KeywordTok{list}\NormalTok{(dataset}\OperatorTok{$}\NormalTok{EVTYPE), }\DataTypeTok{FUN =} \StringTok{"sum"}\NormalTok{)}
+    \KeywordTok{names}\NormalTok{(field) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"EVTYPE"}\NormalTok{, fieldName)}
+\NormalTok{    field <-}\StringTok{ }\KeywordTok{arrange}\NormalTok{(field, field[, }\DecValTok{2}\NormalTok{], }\DataTypeTok{decreasing =}\NormalTok{ T)}
+\NormalTok{    field <-}\StringTok{ }\KeywordTok{head}\NormalTok{(field, }\DataTypeTok{n =}\NormalTok{ top)}
+\NormalTok{    field <-}\StringTok{ }\KeywordTok{within}\NormalTok{(field, EVTYPE <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ EVTYPE, }\DataTypeTok{levels =}\NormalTok{ field}\OperatorTok{$}\NormalTok{EVTYPE))}
+    \KeywordTok{return}\NormalTok{(field)}
+\NormalTok{\}}
+
+\NormalTok{fatalities <-}\StringTok{ }\KeywordTok{sortHelper}\NormalTok{(}\StringTok{"FATALITIES"}\NormalTok{, }\DataTypeTok{dataset =}\NormalTok{ storm)}
+\NormalTok{injuries <-}\StringTok{ }\KeywordTok{sortHelper}\NormalTok{(}\StringTok{"INJURIES"}\NormalTok{, }\DataTypeTok{dataset =}\NormalTok{ storm)}
+\end{Highlighting}
+\end{Shaded}
+
+\paragraph{Impact on Economy}\label{impact-on-economy}
+
+The \textbf{property damage} and \textbf{crop damage} data are converted
+into comparable numerical forms. This conversion is in accordance with
+the meaning of units described in the code book
+(\href{http://ire.org/nicar/database-library/databases/storm-events/}{Storm
+Events}).
+
+Both \texttt{PROPDMGEXP} and \texttt{CROPDMGEXP} columns record a
+multiplier for each observation where we have Hundred (H), Thousand (K),
+Million (M) and Billion (B).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{convertHelper <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{dataset =}\NormalTok{ storm, fieldName, newFieldName) \{}
+\NormalTok{    totalLen <-}\StringTok{ }\KeywordTok{dim}\NormalTok{(dataset)[}\DecValTok{2}\NormalTok{]}
+\NormalTok{    index <-}\StringTok{ }\KeywordTok{which}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(dataset) }\OperatorTok{==}\StringTok{ }\NormalTok{fieldName)}
+\NormalTok{    dataset[, index] <-}\StringTok{ }\KeywordTok{as.character}\NormalTok{(dataset[, index])}
+\NormalTok{    logic <-}\StringTok{ }\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(}\KeywordTok{toupper}\NormalTok{(dataset[, index]))}
+\NormalTok{    dataset[logic }\OperatorTok{&}\StringTok{ }\KeywordTok{toupper}\NormalTok{(dataset[, index]) }\OperatorTok{==}\StringTok{ "B"}\NormalTok{, index] <-}\StringTok{ "9"}
+\NormalTok{    dataset[logic }\OperatorTok{&}\StringTok{ }\KeywordTok{toupper}\NormalTok{(dataset[, index]) }\OperatorTok{==}\StringTok{ "M"}\NormalTok{, index] <-}\StringTok{ "6"}
+\NormalTok{    dataset[logic }\OperatorTok{&}\StringTok{ }\KeywordTok{toupper}\NormalTok{(dataset[, index]) }\OperatorTok{==}\StringTok{ "K"}\NormalTok{, index] <-}\StringTok{ "3"}
+\NormalTok{    dataset[logic }\OperatorTok{&}\StringTok{ }\KeywordTok{toupper}\NormalTok{(dataset[, index]) }\OperatorTok{==}\StringTok{ "H"}\NormalTok{, index] <-}\StringTok{ "2"}
+\NormalTok{    dataset[logic }\OperatorTok{&}\StringTok{ }\KeywordTok{toupper}\NormalTok{(dataset[, index]) }\OperatorTok{==}\StringTok{ ""}\NormalTok{, index] <-}\StringTok{ "0"}
+\NormalTok{    dataset[, index] <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(dataset[, index])}
+\NormalTok{    dataset[}\KeywordTok{is.na}\NormalTok{(dataset[, index]), index] <-}\StringTok{ }\DecValTok{0}
+\NormalTok{    dataset <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(dataset, dataset[, index }\OperatorTok{-}\StringTok{ }\DecValTok{1}\NormalTok{] }\OperatorTok{*}\StringTok{ }\DecValTok{10}\OperatorTok{^}\NormalTok{dataset[, index])}
+    \KeywordTok{names}\NormalTok{(dataset)[totalLen }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{] <-}\StringTok{ }\NormalTok{newFieldName}
+    \KeywordTok{return}\NormalTok{(dataset)}
+\NormalTok{\}}
+
+\NormalTok{storm <-}\StringTok{ }\KeywordTok{convertHelper}\NormalTok{(storm, }\StringTok{"PROPDMGEXP"}\NormalTok{, }\StringTok{"propertyDamage"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in convertHelper(storm, "PROPDMGEXP", "propertyDamage"): NAs
+## introduced by coercion
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{storm <-}\StringTok{ }\KeywordTok{convertHelper}\NormalTok{(storm, }\StringTok{"CROPDMGEXP"}\NormalTok{, }\StringTok{"cropDamage"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in convertHelper(storm, "CROPDMGEXP", "cropDamage"): NAs introduced
+## by coercion
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{names}\NormalTok{(storm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "STATE__"        "BGN_DATE"       "BGN_TIME"       "TIME_ZONE"     
+##  [5] "COUNTY"         "COUNTYNAME"     "STATE"          "EVTYPE"        
+##  [9] "BGN_RANGE"      "BGN_AZI"        "BGN_LOCATI"     "END_DATE"      
+## [13] "END_TIME"       "COUNTY_END"     "COUNTYENDN"     "END_RANGE"     
+## [17] "END_AZI"        "END_LOCATI"     "LENGTH"         "WIDTH"         
+## [21] "F"              "MAG"            "FATALITIES"     "INJURIES"      
+## [25] "PROPDMG"        "PROPDMGEXP"     "CROPDMG"        "CROPDMGEXP"    
+## [29] "WFO"            "STATEOFFIC"     "ZONENAMES"      "LATITUDE"      
+## [33] "LONGITUDE"      "LATITUDE_E"     "LONGITUDE_"     "REMARKS"       
+## [37] "REFNUM"         "year"           "propertyDamage" "cropDamage"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{scipen=}\DecValTok{999}\NormalTok{)}
+\NormalTok{property <-}\StringTok{ }\KeywordTok{sortHelper}\NormalTok{(}\StringTok{"propertyDamage"}\NormalTok{, }\DataTypeTok{dataset =}\NormalTok{ storm)}
+\NormalTok{crop <-}\StringTok{ }\KeywordTok{sortHelper}\NormalTok{(}\StringTok{"cropDamage"}\NormalTok{, }\DataTypeTok{dataset =}\NormalTok{ storm)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Results}\label{results}
+
+As for the impact on public health, we have got two sorted lists of
+severe weather events below by the number of people badly affected.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fatalities}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               EVTYPE FATALITIES
+## 1     EXCESSIVE HEAT       1903
+## 2            TORNADO       1545
+## 3        FLASH FLOOD        934
+## 4               HEAT        924
+## 5          LIGHTNING        729
+## 6              FLOOD        423
+## 7        RIP CURRENT        360
+## 8          HIGH WIND        241
+## 9          TSTM WIND        241
+## 10         AVALANCHE        223
+## 11      RIP CURRENTS        204
+## 12      WINTER STORM        195
+## 13         HEAT WAVE        161
+## 14 THUNDERSTORM WIND        131
+## 15      EXTREME COLD        126
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{injuries}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               EVTYPE INJURIES
+## 1            TORNADO    21765
+## 2              FLOOD     6769
+## 3     EXCESSIVE HEAT     6525
+## 4          LIGHTNING     4631
+## 5          TSTM WIND     3630
+## 6               HEAT     2030
+## 7        FLASH FLOOD     1734
+## 8  THUNDERSTORM WIND     1426
+## 9       WINTER STORM     1298
+## 10 HURRICANE/TYPHOON     1275
+## 11         HIGH WIND     1093
+## 12              HAIL      916
+## 13          WILDFIRE      911
+## 14        HEAVY SNOW      751
+## 15               FOG      718
+\end{verbatim}
+
+A pair of graph of total fatalities nand total injuries affected by
+these severe weather events is shown in the following.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fatalitiesPlot <-}\StringTok{ }\KeywordTok{qplot}\NormalTok{(EVTYPE, }\DataTypeTok{data =}\NormalTok{ fatalities, }\DataTypeTok{weight =}\NormalTok{ FATALITIES, }\DataTypeTok{geom =} \StringTok{"bar"}\NormalTok{, }\DataTypeTok{binwidth =} \OtherTok{NULL}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{scale_y_continuous}\NormalTok{(}\StringTok{"Number of Fatalities"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{45}\NormalTok{, }
+    \DataTypeTok{hjust =} \DecValTok{1}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Severe Weather Type"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Total Fatalities by Severe Weather}\CharTok{\textbackslash{}n}\StringTok{ Events in the U.S.}\CharTok{\textbackslash{}n}\StringTok{ from 1995 - 2011"}\NormalTok{)}
+\NormalTok{injuriesPlot <-}\StringTok{ }\KeywordTok{qplot}\NormalTok{(EVTYPE, }\DataTypeTok{data =}\NormalTok{ injuries, }\DataTypeTok{weight =}\NormalTok{ INJURIES, }\DataTypeTok{geom =} \StringTok{"bar"}\NormalTok{, }\DataTypeTok{binwidth =} \OtherTok{NULL}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{scale_y_continuous}\NormalTok{(}\StringTok{"Number of Injuries"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{45}\NormalTok{, }
+    \DataTypeTok{hjust =} \DecValTok{1}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Severe Weather Type"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Total Injuries by Severe Weather}\CharTok{\textbackslash{}n}\StringTok{ Events in the U.S.}\CharTok{\textbackslash{}n}\StringTok{ from 1995 - 2011"}\NormalTok{)}
+\KeywordTok{grid.arrange}\NormalTok{(fatalitiesPlot, injuriesPlot, }\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{storm_data_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+The histogram represented in above demonstrates the \textbf{excessive
+heat} and \textbf{tornado} cause most fatalities; \textbf{excessive
+heat} and \textbf{tornado} cause most fatalities; \textbf{tornato}
+causes most injuries in the United States from 1995 to 2011.
+
+Two sorted lists by the amount of money cost by damages are provided in
+order to show the impact on economy.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{property}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               EVTYPE propertyDamage
+## 1              FLOOD   144022037057
+## 2  HURRICANE/TYPHOON    69305840000
+## 3        STORM SURGE    43193536000
+## 4            TORNADO    24935939545
+## 5        FLASH FLOOD    16047794571
+## 6               HAIL    15048722103
+## 7          HURRICANE    11812819010
+## 8     TROPICAL STORM     7653335550
+## 9          HIGH WIND     5259785375
+## 10          WILDFIRE     4759064000
+## 11  STORM SURGE/TIDE     4641188000
+## 12         TSTM WIND     4482361440
+## 13         ICE STORM     3643555810
+## 14 THUNDERSTORM WIND     3399282992
+## 15    HURRICANE OPAL     3172846000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{crop}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               EVTYPE  cropDamage
+## 1            DROUGHT 13922066000
+## 2              FLOOD  5422810400
+## 3          HURRICANE  2741410000
+## 4               HAIL  2614127070
+## 5  HURRICANE/TYPHOON  2607872800
+## 6        FLASH FLOOD  1343915000
+## 7       EXTREME COLD  1292473000
+## 8       FROST/FREEZE  1094086000
+## 9         HEAVY RAIN   728399800
+## 10    TROPICAL STORM   677836000
+## 11         HIGH WIND   633561300
+## 12         TSTM WIND   553947350
+## 13    EXCESSIVE HEAT   492402000
+## 14 THUNDERSTORM WIND   414354000
+## 15              HEAT   401411500
+\end{verbatim}
+
+A pair of graphs of total property damage and total crop damage affected
+by these severe weather events is given in the following.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{propertyPlot <-}\StringTok{ }\KeywordTok{qplot}\NormalTok{(EVTYPE, }\DataTypeTok{data =}\NormalTok{ property, }\DataTypeTok{weight =}\NormalTok{ propertyDamage, }\DataTypeTok{geom =} \StringTok{"bar"}\NormalTok{, }\DataTypeTok{binwidth =} \OtherTok{NULL}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{45}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_y_continuous}\NormalTok{(}\StringTok{"Property Damage in US dollars"}\NormalTok{)}\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Severe Weather Type"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Total Property Damage by}\CharTok{\textbackslash{}n}\StringTok{ Severe Weather Events in}\CharTok{\textbackslash{}n}\StringTok{ the U.S. from 1995 - 2011"}\NormalTok{)}
+
+\NormalTok{cropPlot<-}\StringTok{ }\KeywordTok{qplot}\NormalTok{(EVTYPE, }\DataTypeTok{data =}\NormalTok{ crop, }\DataTypeTok{weight =}\NormalTok{ cropDamage, }\DataTypeTok{geom =} \StringTok{"bar"}\NormalTok{, }\DataTypeTok{binwidth =} \OtherTok{NULL}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{45}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_y_continuous}\NormalTok{(}\StringTok{"Crop Damage in US dollars"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Severe Weather Type"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Total Crop Damage by }\CharTok{\textbackslash{}n}\StringTok{Severe Weather Events in}\CharTok{\textbackslash{}n}\StringTok{ the U.S. from 1995 - 2011"}\NormalTok{)}
+\KeywordTok{grid.arrange}\NormalTok{(propertyPlot, cropPlot, }\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{storm_data_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+For the goal of finding out the \textbf{flood} and
+\textbf{hurricane/typhoon} cause most property damage; \textbf{drought}
+and \textbf{flood} causes most crop damage in the United States from
+1995 to 2011, two histogram plots are created and displayed
+side-by-side.
+
+\subsubsection{Conclusion}\label{conclusion}
+
+The interpretation from this study is described as \textbf{excessive
+heat} and \textbf{tornado} are most harmful with respect to population
+health, while \textbf{flood}, \textbf{drought}, and
+\textbf{hurricane/typhoon} have the greatest economic consequences.
+
+
+\end{document}
